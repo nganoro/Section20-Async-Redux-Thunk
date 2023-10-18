@@ -6,7 +6,7 @@ import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
 import { uiActions } from './store/ui-slice';
 import Notification from './components/UI/Notifications';
-import { sendCartData } from './store/cart-slice';
+import { sendCartData, fetchCartData } from './store/cart-actions';
 
 //initialized only when it first renders
 let isInitial = true;
@@ -19,6 +19,11 @@ function App() {
 
   useEffect(() => {
     
+    dispatch(fetchCartData);
+  }, [dispatch]);
+
+  useEffect(() => {
+    
       /** the following is if you're using thunk */
 
       if (isInitial){
@@ -26,7 +31,9 @@ function App() {
         return;
       }
 
-      dispatch(sendCartData(cart));
+      if(cart.changed){
+        dispatch(sendCartData(cart));
+      }
 
 /** you can use this or the thunk above */
     //   const sendCartData = async () => {
@@ -72,6 +79,8 @@ function App() {
     //       })
     //     );
     //   });
+
+
       }, [cart, dispatch]);
   
   
