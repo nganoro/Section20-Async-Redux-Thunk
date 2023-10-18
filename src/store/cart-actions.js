@@ -8,7 +8,6 @@ export const fetchCartData = () => {
             'https://react-http-6b4a6.firebaseio.com/cart.json',
         );
 
-        
         if (!response.ok) {
             throw new Error('Could not fetch response data!');
         }
